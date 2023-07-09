@@ -1,7 +1,6 @@
-#Ashlyn Barrett
+#Ashlyn_Barrett
 #Module 6.3
 #Due 07/10/2023
-
 
 from pymongo import MongoClient
 
@@ -9,16 +8,16 @@ URL = "mongodb+srv://admin:admin@cluster0.9yphtky.mongodb.net/"
 client = MongoClient(URL)
 db = client.pytech
 
-# get the students collection 
+#get the students collection 
 students = db.students
 
-# find all students in the collection 
+#find all students in the collection 
 student_list = students.find({})
 
-# display message 
+#display message 
 print("\n  -- DISPLAYING STUDENTS DOCUMENTS FROM find() QUERY --")
 
-# loop over the collection and output the results 
+#loop over the collection and output the results 
 for doc in student_list:
     print("  Student ID: " + doc["student_id"] + "\n  First Name: " + doc["first_name"] + "\n  Last Name: " + doc["last_name"] + "\n")
 
