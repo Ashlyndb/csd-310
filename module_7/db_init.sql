@@ -1,7 +1,7 @@
 /*
     Title: db_init.sql
-    Author: Professor Krasso
-    Date: 15 July 2020
+    Ashlyn Barrett
+    Due: 07/24/2023
     Description: pysports database initialization script.
 */
 
@@ -10,7 +10,7 @@ DROP USER IF EXISTS 'pysports_user'@'localhost';
 
 
 -- create pysports_user and grant them all privileges to the pysports database 
-CREATE USER 'pysports_user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'MySQL8IsGreat!';
+CREATE USER 'pysports_user'@'localhost' IDENTIFIED WITH mysql_native_password BY '1947';
 
 -- grant all privileges to the pysports database to user pysports_user on localhost 
 GRANT ALL PRIVILEGES ON pysports.* TO'pysports_user'@'localhost';
