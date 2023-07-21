@@ -1,7 +1,9 @@
 """ 
     Title: pysports_queries.py
-    Author: Professor Krasso
-    Date: 15 July 2020
+    Ashlyn Barrett
+    Assignment 8.3
+    Imported from: Professor Krasso
+    Due Date: 24 July 2023
     Description: Test program for executing queries against the pysports database. 
 """
 
