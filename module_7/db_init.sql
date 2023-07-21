@@ -1,6 +1,8 @@
 /*
     Title: db_init.sql
-    Author: Professor Krasso
+    Ashlyn Barrett
+    Assignment 8.2
+    Imported from: Professor Krasso
     Date: 15 July 2020
     Description: pysports database initialization script.
 */
