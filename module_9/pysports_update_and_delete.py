@@ -1,7 +1,8 @@
 """ 
     Title: pysports_update_and_delete.py
-    Author: Professor Krasso
-    Date: 16 July 2020
+    Ashlyn Barrett
+    Imported from: Professor Krasso
+    Due: 07/31/2023
     Description: Test program for inserting, updating, and deleting records from the pysports database
 """
 

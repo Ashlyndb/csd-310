@@ -1,5 +1,6 @@
 """ 
     Title: pysports_join_queries.py
+    Ashlyn Barrett
     Imported from: Professor Krasso
     Due Date: 07/31/2023
     Module 9.2
