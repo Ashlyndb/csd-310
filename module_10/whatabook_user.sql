@@ -1,85 +1,27 @@
-"""create new user and assign password"""
-CREATE USER 'whatabook_user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'MySQL8IsGreat!';
 
-"""Create four tables"""
-CREATE TABLE store (
-    store_id INT NOT NULL AUTO_INCREMENT,
-    locale VARCHAR(500) NOT NULL,
-    PRIMARY KEY(store_id)
-);
 
-CREATE TABLE book (
-    book_id  INT NOT NULL AUTO_INCREMENT,
-    book_name VARCHAR(200) NOT NULL,
-    author VARCHAR(200) NOT NULL,
-    details VARCHAR(500),
-    PRIMARY KEY(book_id)
-);
 
-CREATE TABLE user (
-    user_id INT  NOT NULL AUTO_INCREMENT,
-    first_name VARCHAR(75) NOT NULL,
-    last_name VARCHAR(75) NOT NULL,
-    PRIMARY KEY(user_id) 
-);
+"""View wishlist items"""
+SELECT user.user_id, user.first_name, user.last_name, book.book_id, book.book_name, book.author
+FROM wishlist
+    INNER JOIN user ON wishlist.user_id = user.user_id
+    INNER JOIN book ON wishlist.book_id = book.book_id
+WHERE user.user_id = 1;
 
-CREATE TABLE wishlist (
-    wishlist_id  INT NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    book_id INT NOT NULL,
-    PRIMARY KEY (wishlist_id),
-    CONSTRAINT fk_book
-    FOREIGN KEY (book_id)
-    REFERENCES book(book_id),
-    CONSTRAINT fk_user
-    FOREIGN KEY (user_id)
-    REFERENCES user(user_Id)
-);
+"""find store location"""
+SELECT store_id, locale from store;
 
-"""create store"""
-INSERT INTO store(locale) VALUES('2120 Stemmons Fwy, Sanger, TX 76266'); 
+"""view all books"""
+SELECT book_id, book_name, author, details from book;
 
-"""create 9 books"""
-INSERT INTO book(book_name, author) VALUES('Fourth Wing', 'Rebecca Yarros');
+"""books outside of wishlist"""
+SELECT book_id, book_name, author, details
+FROM book
+WHERE book_id NOT IN (SELECT book_id FROM wishlist WHERE user_id = 1);
 
-INSERT INTO book(book_name, author) VALUES('Crossed', 'Emily McIntire');
-
-INSERT INTO book(book_name, author) VALUES('Holly', 'Stephen King');
-
-INSERT INTO book(book_name, author) VALUES('The Outsiders', 'S.E. Hinton');
-
-INSERT INTO book(book_name, author) VALUES('The Nightingale', 'Kristin Hannah');
-
-INSERT INTO book(book_name, author) VALUES('Oppenheimer', 'Christopher Nolan');
-
-INSERT INTO book(book_name, author) VALUES('The Housemaid', 'Freida McFadden');
-
-INSERT INTO book(book_name, author) VALUES('Happiness: A Novel', 'Danielle Steel');
-
-INSERT INTO book(book_name, author) VALUES('Remarkably Bright Creatures (Read with Jenna Pick)', 'Shelby Van Pelt');
-
-"""create three users""" 
-INSERT INTO user(first_name, last_name) VALUES('Austin', 'Leo');
-
-INSERT INTO user(first_name, last_name) VALUES('Ashlyn', 'Danielle');
-
-INSERT INTO user(first_name, last_name)VALUES('Miles', 'Edison');
-
-"""create wishlists"""
+"""add new book to wishlist"""
 INSERT INTO wishlist(user_id, book_id)
-  VALUES (
-        (SELECT user_id FROM user WHERE first_name = 'Ashlyn'), 
-        (SELECT book_id FROM book WHERE book_name = 'The Housemaid')
-    );
+    VALUES(1, 9)
 
-INSERT INTO wishlist(user_id, book_id) 
- VALUES (
-        (SELECT user_id FROM user WHERE first_name = 'Austin'),
-        (SELECT book_id FROM book WHERE book_name = 'The Outsiders')
-    );
-
-INSERT INTO wishlist(user_id, book_id)
- VALUES (
-        (SELECT user_id FROM user WHERE first_name = 'Miles'),
-        (SELECT book_id FROM book WHERE book_name = 'Oppenheimer')
-    );
+"""remove a book from wishlist"""
+DELETE FROM wishlist WHERE user_id = 1 AND book_id = 9;
