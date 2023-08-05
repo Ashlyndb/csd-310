@@ -18,31 +18,31 @@ config = {
     "database": "whatabook",
     "raise_on_warnings": True
 }
-
+"""create main menu"""
 def show_menu():
-    print("Menu")
+    print("\n  -- Main Menu --")
 
     print("    1. View Books\n    2. View Store Locations\n    3. My Account\n    4. Exit Program")
 
     try:
-        choice = int(input())
+        choice = int(input('      <Example enter: 1 for book listing>: '))
 
         return choice
     except ValueError:
-        print("Invalid number, please try again.")
+        print("\n  Invalid number, program terminated...\n")
 
         sys.exit(0)
 
 def show_books(_cursor):
-    """inner""" 
+    """inner join query"""
     _cursor.execute("SELECT book_id, book_name, author, details from book")
 
-    # get results 
+    """get the results from the cursor object""" 
     books = _cursor.fetchall()
 
     print("\n  -- DISPLAYING BOOK LISTING --")
     
-    # iterate over the player data set and display the results 
+    """iterate over the player data set and display the results""" 
     for book in books:
         print("  Book Name: {}\n  Author: {}\n  Details: {}\n".format(book[0], book[1], book[2]))
 
