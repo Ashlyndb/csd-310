@@ -210,8 +210,3 @@ except mysql.connector.Error as err:
 
     else:
         print(err)
-
-finally:
-    """ close the connection to MySQL """
-
-    db.close()
