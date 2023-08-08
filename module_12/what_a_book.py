@@ -20,18 +20,24 @@ config = {
 }
 """create main menu"""
 def show_menu():
-    print("\n  -- Main Menu --")
+  """Displays the main menu and gets the user's choice."""
 
-    print("    1. View Books\n    2. View Store Locations\n    3. My Account\n    4. Exit Program")
+  print("\n  -- Main Menu --")
 
-    try:
-        choice = int(input('      <Example enter: 1 for book listing>: '))
+  print("    1. View Books")
+  print("    2. View Store Locations")
+  print("    3. My Account")
+  print("    4. Exit Program")
 
-        return choice
-    except ValueError:
-        print("\n  Invalid number, program terminated...\n")
+  choice = input("\n  Enter your choice: ")
 
-        sys.exit(0)
+  # Validate the user's choice.
+
+  while not choice.isdigit() or int(choice) not in [1, 2, 3, 4]:
+    print("Invalid choice. Please enter a number from 1 to 4.")
+    choice = input("\n  Enter your choice: ")
+
+  return int(choice)
 
 def show_books(_cursor):
     """inner join query"""
@@ -57,34 +63,36 @@ def show_locations(_cursor):
         print("  Locale: {}\n".format(location[1]))
 
 def validate_user():
-    """ validate the users ID """
+  """Validates the user's ID."""
 
-    try:
-        user_id = int(input('\n      Enter a customer id <Example 1 for user_id 1>: '))
+  user_id = input("\nEnter a customer id (1-3): ")
 
-        if user_id < 0 or user_id > 3:
-            print("\n  Invalid customer number, program terminated...\n")
-            sys.exit(0)
+  # Validate the user's ID.
 
-        return user_id
-    except ValueError:
-        print("\n  Invalid number, program terminated...\n")
+  while not user_id.isdigit() or int(user_id) not in range(1, 4):
+    print("Invalid customer number. Please enter a number from 1 to 3.")
+    user_id = input("\nEnter a customer id (1-3): ")
 
-        sys.exit(0)
+  return int(user_id)
 
 def show_account_menu():
-    """ display the users account menu """
+  """Displays the customer account menu and gets the user's choice."""
 
-    try:
-        print("\n      -- Customer Menu --")
-        print("        1. Wishlist\n        2. Add Book\n        3. Main Menu")
-        account_option = int(input('        <Example enter: 1 for wishlist>: '))
+  print("\n  -- Customer Menu --")
 
-        return account_option
-    except ValueError:
-        print("\n  Invalid number, program terminated...\n")
+  print("    1. Wishlist")
+  print("    2. Add Book")
+  print("    3. Main Menu")
 
-        sys.exit(0)
+  account_option = input("\n  Enter your choice: ")
+
+  # Validate the user's choice.
+
+  while not account_option.isdigit() or int(account_option) not in [1, 2, 3]:
+    print("Invalid choice. Please enter a number from 1 to 3.")
+    account_option = input("\n  Enter your choice: ")
+
+  return int(account_option)
 
 def show_wishlist(_cursor, _user_id):
     """ query the database for a list of books added to the users wishlist """
@@ -130,62 +138,61 @@ try:
 
     cursor = db.cursor() # cursor for MySQL queries
 
-    print("\n  Welcome to the WhatABook Application! ")
+    print("\n  Hello, this is WhatABook! ")
 
     user_selection = show_menu() # show the main menu 
 
     # while the user's selection is not 4
     while user_selection != 4:
 
-        # if the user selects option 1, call the show_books method and display the books
+        # If the user selects option one, show_books method is activated
         if user_selection == 1:
             show_books(cursor)
 
-        # if the user selects option 2, call the show_locations method and display the configured locations
+        # If the user selects option two, show_locations method is activated
         if user_selection == 2:
             show_locations(cursor)
 
-        # if the user selects option 3, call the validate_user method to validate the entered user_id 
-        # call the show_account_menu() to show the account settings menu
+        # If the user selects option 3, validate_user method is activated
         if user_selection == 3:
             my_user_id = validate_user()
-            account_option = show_account_menu()
+            account_option = show_account_menu() #Show the account settings menu
 
-            # while account option does not equal 3
+            # while the user's selection is not 3
             while account_option != 3:
 
-                # if the use selects option 1, call the show_wishlist() method to show the current users 
+                # If the use selects option 1, show_wishlist() method is activated to show the current users 
                 # configured wishlist items 
                 if account_option == 1:
                     show_wishlist(cursor, my_user_id)
 
-                # if the user selects option 2, call the show_books_to_add function to show the user 
+                # if the user selects option 2, show_books_to_add function is activated to show the user 
                 # the books not currently configured in the users wishlist
                 if account_option == 2:
 
-                    # show the books not currently configured in the users wishlist
+                    # show books that can be added to users wishlist
                     show_books_to_add(cursor, my_user_id)
 
                     # get the entered book_id 
-                    book_id = int(input("\n        Enter the id of the book you want to add: "))
+                    book_id = int(input("\n       Enter book id you wish to add: "))
                     
                     # add the selected book the users wishlist
                     add_book_to_wishlist(cursor, my_user_id, book_id)
 
                     db.commit() # commit the changes to the database 
 
-                    print("\n        Book id: {} was added to your wishlist!".format(book_id))
+                    print("\n        Book id: {} has succesfully been added to your wishlist!".format(book_id))
 
                 # if the selected option is less than 0 or greater than 3, display an invalid user selection 
                 if account_option < 0 or account_option > 3:
-                    print("\n      Invalid option, please retry...")
+                    print("\n      Invalid option, try again...")
 
                 # show the account menu 
                 account_option = show_account_menu()
         
         # if the user selection is less than 0 or greater than 4, display an invalid user selection
         if user_selection < 0 or user_selection > 4:
-            print("\n      Invalid option, please retry...")
+            print("\n      Invalid option, try again...")
             
         # show the main menu
         user_selection = show_menu()
