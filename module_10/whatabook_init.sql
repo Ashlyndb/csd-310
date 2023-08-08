@@ -1,7 +1,7 @@
 """create new user and assign password"""
 CREATE USER 'whatabook_user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'MySQL8IsGreat!';
 
--- grant all privileges to the whatabook database to user whatabook_user on localhost 
+"""grant all privileges to the whatabook database to user whatabook_user on localhost""" 
 GRANT ALL PRIVILEGES ON whatabook.* TO'whatabook_user'@'localhost';
 
 """Create four tables"""
@@ -68,7 +68,7 @@ INSERT INTO user(first_name, last_name) VALUES('Ashlyn', 'Danielle');
 
 INSERT INTO user(first_name, last_name)VALUES('Miles', 'Edison');
 
-"""create wishlists"""
+"""create one wishlist per user"""
 INSERT INTO wishlist(user_id, book_id)
   VALUES (
         (SELECT user_id FROM user WHERE first_name = 'Ashlyn'), 
