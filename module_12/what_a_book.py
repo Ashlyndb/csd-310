@@ -29,31 +29,36 @@ def show_menu():
   print("    3. My Account")
   print("    4. Exit Program")
 
-  choice = input("\n  Enter your choice: ")
+  try:
+        choice = int(input('      ---Enter either 1, 2, 3, or 4---   : '))
 
-  # Validate the user's choice.
+        return choice
+  except ValueError:
+        print("\n  Invalid number, program terminated...\n")
 
-  while not choice.isdigit() or int(choice) not in [1, 2, 3, 4]:
-    print("Invalid choice. Please enter a number from 1 to 4.")
-    choice = input("\n  Enter your choice: ")
-
-  return int(choice)
+        sys.exit(0)
 
 def show_books(_cursor):
     """inner join query"""
-    _cursor.execute("SELECT book_id, book_name, author, details from book")
+    _cursor.execute("SELECT book_id, book_name, author, details FROM book")
 
     """get the results from the cursor object""" 
     books = _cursor.fetchall()
 
-    print("\n  -- DISPLAYING BOOK LISTING --")
+    print("\n  -- Here are the books --")
     
     """iterate over the player data set and display the results""" 
     for book in books:
-        print("  Book Name: {}\n  Author: {}\n  Details: {}\n".format(book[0], book[1], book[2]))
+     print("Book ID: {}".format(book[0])
+            + "\nBook Name: {}".format(book[1])
+              +  "\nAuthor: {}".format(book[2])
+              + "\nDetails: {}".format(book[3])
+                + "\n")
+    input("Press enter for main menu ")
+    show_menu()
 
 def show_locations(_cursor):
-    _cursor.execute("SELECT store_id, locale from store")
+    _cursor.execute("SELECT store_id, locale FROM store")
 
     locations = _cursor.fetchall()
 
@@ -78,11 +83,15 @@ def validate_user():
 def show_account_menu():
   """Displays the customer account menu and gets the user's choice."""
 
-  print("\n  -- Customer Menu --")
+  print("""
 
-  print("    1. Wishlist")
-  print("    2. Add Book")
-  print("    3. Main Menu")
+    ### Customer Menu ###
+
+    1. Wishlist
+    2. Add Book
+    3. Main Menu
+
+""")
 
   account_option = input("\n  Enter your choice: ")
 
@@ -105,15 +114,15 @@ def show_wishlist(_cursor, _user_id):
     
     wishlist = _cursor.fetchall()
 
-    print("\n        -- DISPLAYING WISHLIST ITEMS --")
+    print("\n        -- Here is the requested wishlist --")
 
     for book in wishlist:
-        print("        Book Name: {}\n        Author: {}\n".format(book[4], book[5]))
+         print("        Book Name: {}\n        Author: {}\n".format(book[4], book[5]))
 
 def show_books_to_add(_cursor, _user_id):
     """ query the database for a list of books not in the users wishlist """
 
-    query = ("SELECT book_id, book_name, author, details "
+    query = query = ("SELECT book_id, book_name, author, details "
             "FROM book "
             "WHERE book_id NOT IN (SELECT book_id FROM wishlist WHERE user_id = {})".format(_user_id))
 
@@ -123,7 +132,7 @@ def show_books_to_add(_cursor, _user_id):
 
     books_to_add = _cursor.fetchall()
 
-    print("\n        -- DISPLAYING AVAILABLE BOOKS --")
+    print("\n        -- Here are the available books --")
 
     for book in books_to_add:
         print("        Book Id: {}\n        Book Name: {}\n".format(book[0], book[1]))

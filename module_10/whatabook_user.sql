@@ -12,7 +12,7 @@ WHERE user.user_id = 1;
 SELECT store_id, locale from store;
 
 """view all books"""
-SELECT book_id, book_name, author, details from book;
+SELECT book_id, book_name, author, details FROM book;
 
 """books outside of wishlist"""
 SELECT book_id, book_name, author, details
