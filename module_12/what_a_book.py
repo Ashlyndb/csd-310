@@ -1,16 +1,16 @@
-""" 
-    Title: what_a_book.py
-    Author: Ashlyn Barrett
-    Due: 08/12/2023
-    Assignment: WhatABook 
-"""
+#
+#    Title: what_a_book.py
+#    Author: Ashlyn Barrett
+#    Due: 08/12/2023
+#   Assignment: WhatABook 
+#
 
-""" import statements """
+# import statements 
 import sys
 import mysql.connector
 from mysql.connector import errorcode
 
-""" database config object """
+# database config object 
 config = {
     "user": "whatabook_user",
     "password": "MySQL8IsGreat!",
@@ -18,9 +18,9 @@ config = {
     "database": "whatabook",
     "raise_on_warnings": True
 }
-"""create main menu"""
+#create main menu
 def show_menu():
-  """Displays the main menu and gets the user's choice."""
+#Displays the main menu and gets the user's choice.
 
   print("\n  -- Main Menu --")
 
@@ -30,7 +30,7 @@ def show_menu():
   print("    4. Exit Program")
 
   try:
-        choice = int(input('      ---Enter either 1, 2, 3, or 4---   : '))
+        choice = int(input('      ###Enter either 1, 2, 3, or 4###   : '))
 
         return choice
   except ValueError:
@@ -39,15 +39,15 @@ def show_menu():
         sys.exit(0)
 
 def show_books(_cursor):
-    """inner join query"""
+#inner join query
     _cursor.execute("SELECT book_id, book_name, author, details FROM book")
 
-    """get the results from the cursor object""" 
+#get the results from the cursor object 
     books = _cursor.fetchall()
 
-    print("\n  -- Here are the books --")
+    print("\n  ###Here are the books### ")
     
-    """iterate over the player data set and display the results""" 
+#iterate over the player data set and display the results
     for book in books:
      print("Book ID: {}".format(book[0])
             + "\nBook Name: {}".format(book[1])
@@ -68,11 +68,11 @@ def show_locations(_cursor):
         print("  Locale: {}\n".format(location[1]))
 
 def validate_user():
-  """Validates the user's ID."""
+#Validates the user's ID.
 
   user_id = input("\nEnter a customer id (1-3): ")
 
-  # Validate the user's ID.
+#Validate the user's ID.
 
   while not user_id.isdigit() or int(user_id) not in range(1, 4):
     print("Invalid customer number. Please enter a number from 1 to 3.")
@@ -81,7 +81,7 @@ def validate_user():
   return int(user_id)
 
 def show_account_menu():
-  """Displays the customer account menu and gets the user's choice."""
+#Displays the customer account menu and gets the user's choice.
 
   print("""
 
@@ -95,7 +95,7 @@ def show_account_menu():
 
   account_option = input("\n  Enter your choice: ")
 
-  # Validate the user's choice.
+#Validate the user's choice.
 
   while not account_option.isdigit() or int(account_option) not in [1, 2, 3]:
     print("Invalid choice. Please enter a number from 1 to 3.")
@@ -114,13 +114,13 @@ def show_wishlist(_cursor, _user_id):
     
     wishlist = _cursor.fetchall()
 
-    print("\n        -- Here is the requested wishlist --")
+    print("\n        ###Here is the requested wishlist### ")
 
     for book in wishlist:
          print("        Book Name: {}\n        Author: {}\n".format(book[4], book[5]))
 
 def show_books_to_add(_cursor, _user_id):
-    """ query the database for a list of books not in the users wishlist """
+#query the database for a list of books not in the users wishlist 
 
     query = query = ("SELECT book_id, book_name, author, details "
             "FROM book "
@@ -132,7 +132,7 @@ def show_books_to_add(_cursor, _user_id):
 
     books_to_add = _cursor.fetchall()
 
-    print("\n        -- Here are the available books --")
+    print("\n        ###Here are the available books###   ")
 
     for book in books_to_add:
         print("        Book Id: {}\n        Book Name: {}\n".format(book[0], book[1]))
@@ -141,7 +141,7 @@ def add_book_to_wishlist(_cursor, _user_id, _book_id):
     _cursor.execute("INSERT INTO wishlist(user_id, book_id) VALUES({}, {})".format(_user_id, _book_id))
 
 try:
-    """ try/catch block for handling potential MySQL database errors """ 
+#try/catch block for handling potential MySQL database errors
 
     db = mysql.connector.connect(**config) # connect to the WhatABook database 
 
@@ -209,7 +209,7 @@ try:
     print("\n\n  Program terminated...")
 
 except mysql.connector.Error as err:
-    """ handle errors """ 
+#handle errors  
 
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
         print("  The supplied username or password are invalid")
@@ -221,6 +221,6 @@ except mysql.connector.Error as err:
         print(err)
         # Close connection to database after determining an exception error.
 finally:
-    """ close the connection to MySQL """
+#close the connection to MySQL 
     db.close()
     
