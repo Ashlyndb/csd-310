@@ -132,7 +132,7 @@ def show_books_to_add(_cursor, _user_id):
 
     books_to_add = _cursor.fetchall()
 
-    print("\n        ###Here are the available books###   ")
+    print("\n        ###Here are the available books###")
 
     for book in books_to_add:
         print("        Book Id: {}\n        Book Name: {}\n".format(book[0], book[1]))
@@ -206,16 +206,16 @@ try:
         # show the main menu
         user_selection = show_menu()
 
-    print("\n\n  Program terminated...")
+    print("\n\n  Program ended...")
 
 except mysql.connector.Error as err:
 #handle errors  
 
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-        print("  The supplied username or password are invalid")
+        print("  Invalid username and password")
 
     elif err.errno == errorcode.ER_BAD_DB_ERROR:
-        print("  The specified database does not exist")
+        print("  The database requested does not exist")
 
     else:
         print(err)
