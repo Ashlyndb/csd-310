@@ -1,4 +1,4 @@
-"""drop test user if exists""" 
+"""drop test user if exists"""
 DROP USER IF EXISTS 'whatabook_user'@'localhost';
 
 """create new user and assign password"""

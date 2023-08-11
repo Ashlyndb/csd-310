@@ -30,7 +30,7 @@ def show_menu():
   print("    4. Exit Program")
 
   try:
-        choice = int(input('      ###Enter either 1, 2, 3, or 4###   : '))
+        choice = int(input('      :::Enter either 1, 2, 3, or 4:::    '))
 
         return choice
   except ValueError:
