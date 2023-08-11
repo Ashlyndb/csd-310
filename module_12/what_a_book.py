@@ -1,9 +1,9 @@
-#
-#    Title: what_a_book.py
-#    Author: Ashlyn Barrett
-#    Due: 08/12/2023
-#   Assignment: WhatABook 
-#
+
+# Title: what_a_book.py
+#Author: Ashlyn Barrett
+# Due: 08/12/2023
+# Assignment: WhatABook 
+
 
 # import statements 
 import sys
