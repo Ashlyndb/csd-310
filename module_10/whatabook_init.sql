@@ -1,4 +1,4 @@
--- create the database and associated user
+-- create the database
 create database whatabook;
 use whatabook;
 
