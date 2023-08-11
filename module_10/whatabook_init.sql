@@ -1,23 +1,23 @@
-"""drop test user if exists"""
+-- drop test user if exists
 DROP USER IF EXISTS 'whatabook_user'@'localhost';
 
-"""create new user and assign password"""
+-- create new user and assign password
 CREATE USER 'whatabook_user'@'localhost' IDENTIFIED WITH mysql_native_password BY 'MySQL8IsGreat!';
 
-"""grant all privileges to the whatabook database to user whatabook_user on localhost""" 
+-- grant all privileges to the whatabook database to user whatabook_user on localhost
 GRANT ALL PRIVILEGES ON whatabook.* TO'whatabook_user'@'localhost';
 
-"""drop contstraints if they exist"""
+--drop contstraints if they exist
 ALTER TABLE wishlist DROP FOREIGN KEY fk_book;
 ALTER TABLE wishlist DROP FOREIGN KEY fk_user;
 
-"""drop tables if they exist"""
+--drop tables if they exist
 DROP TABLE IF EXISTS store;
 DROP TABLE IF EXISTS book;
 DROP TABLE IF EXISTS wishlist;
 DROP TABLE IF EXISTS user;
 
-"""Create four tables"""
+-- Create four tables
 CREATE TABLE store (
     store_id    INT             NOT NULL    AUTO_INCREMENT,
     locale      VARCHAR(500)    NOT NULL,
@@ -52,10 +52,10 @@ CREATE TABLE wishlist (
         REFERENCES user(user_Id)
 );
 
-"""create store"""
+-- create store
 INSERT INTO store(locale) VALUES('2120 Stemmons Fwy, Sanger, TX 76266'); 
 
-"""create 9 books"""
+-- create 9 books
 INSERT INTO book(book_name, author) VALUES('Fourth Wing', 'Rebecca Yarros');
 
 INSERT INTO book(book_name, author) VALUES('Crossed', 'Emily McIntire');
@@ -74,14 +74,14 @@ INSERT INTO book(book_name, author) VALUES('Happiness: A Novel', 'Danielle Steel
 
 INSERT INTO book(book_name, author) VALUES('Remarkably Bright Creatures (Read with Jenna Pick)', 'Shelby Van Pelt');
 
-"""create three users""" 
+-- create three users
 INSERT INTO user(first_name, last_name) VALUES('Austin', 'Leo');
 
 INSERT INTO user(first_name, last_name) VALUES('Ashlyn', 'Danielle');
 
 INSERT INTO user(first_name, last_name)VALUES('Miles', 'Edison');
 
-"""create one wishlist per user"""
+-- create one wishlist per user
 INSERT INTO wishlist(user_id, book_id)
   VALUES (
         (SELECT user_id FROM user WHERE first_name = 'Ashlyn'), 
