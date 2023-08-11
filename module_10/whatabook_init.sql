@@ -1,3 +1,7 @@
+-- create the database and associated user
+create database whatabook;
+use whatabook;
+
 -- drop test user if exists
 DROP USER IF EXISTS 'whatabook_user'@'localhost';
 
