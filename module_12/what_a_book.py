@@ -55,7 +55,6 @@ def show_books(_cursor):
               + "\nDetails: {}".format(book[3])
                 + "\n")
     input("Press enter for main menu ")
-    show_menu()
 
 def show_locations(_cursor):
     _cursor.execute("SELECT store_id, locale FROM store")
